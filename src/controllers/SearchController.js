@@ -4,10 +4,11 @@ const parserStringAsArray = require('../utils/parserStringAsArray');
 module.exports = {
 
     async index(request, response){
+        console.log(request.query);
         const { latitude, longitude, techs } = request.query;  
-
+        console.log("~~~~~~techs ->", techs);
         const techsArray = parserStringAsArray(techs);
-
+        console.log("~~~~~~techsArray ->", techsArray);
         const devs = await Dev.find({
             techs: {
                 $in: techsArray,
@@ -22,7 +23,7 @@ module.exports = {
                 },
             },
         });
-
+        console.log("~~~~~~~devs ->", devs);
         return response.json({ devs });
     }
 }
